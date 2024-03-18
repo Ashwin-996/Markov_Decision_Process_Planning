@@ -362,6 +362,7 @@ class world:
         self.policy[x][y] = best_action
         return False
 
+# Vanilla value iteration
 a = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
 a.initialize_map()
 a.initialize_grid()
@@ -395,13 +396,12 @@ plt.show()
 
 #for x in range(a.dimension):
 #    for y in range(a.dimension):
-#        #print(b.grid[x][y], file=f)
 #        print(a.policy[x][y], end="")
 #    print("")
 #For small_map, epsilon = 1.7
 
-#print("\n\n\n\n\n\n")
 
+# Row-major sweep asynchronous value iteration
 b = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
 b.initialize_map()
 b.initialize_grid()
@@ -429,12 +429,11 @@ ypoints1 = np.asarray(ypoints1)
 
 #for x in range(b.dimension):
 #    for y in range(b.dimension):
-#        #print(b.grid[x][y], file=f)
 #        print(b.policy[x][y], end="")
 #    print("")
 
-#print("\n\n\n\n\n\n")
 
+# Prioritized sweep asynchronous value iteration
 c = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
 c.initialize_map()
 c.initialize_grid()
@@ -458,13 +457,13 @@ while(len(c.pq)!=0):
 xpoints2 = np.asarray(xpoints2)
 ypoints2 = np.asarray(ypoints2)
 
-#for x in range(b.dimension):
-#    for y in range(b.dimension):
-#        #print(b.grid[x][y], file=f)
+#for x in range(c.dimension):
+#    for y in range(c.dimension):
 #        print(c.policy[x][y], end="")
 #    print("")
 
 
+# Modified Policy Iteration (Uses simplified value iteration to get an approximate evaluation of a policy)
 d = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
 d.initialize_map()
 d.initialize_grid()
@@ -508,8 +507,6 @@ ypoints3 = np.asarray(ypoints3)
     #    print(d.policy[x][y], end="")
     #print("")
 
-
-#policy iteration working for all values of epsilon, number of iterations and time will change a/c to epsilon obv.
 
 #plt.plot(xpoints, ypoints, color='r', label='vanilla')
 #plt.plot(xpoints1, ypoints1, color='g', label='row-major sweep')
