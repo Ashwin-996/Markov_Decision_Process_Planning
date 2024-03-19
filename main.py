@@ -363,7 +363,7 @@ class world:
         return False
 
 # Vanilla value iteration
-a = world(4, 0.8, -0.9, 0, 1, 0.9, "small_map.csv")
+a = world(4, 1, -0.9, 0, 1, 0.9, "small_map.csv")
 a.initialize_map()
 a.initialize_grid()
 a.initialize_new_grid()
