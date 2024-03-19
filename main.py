@@ -390,21 +390,6 @@ while(True):
 xpoints = np.asarray(xpoints)
 ypoints = np.asarray(ypoints)
 
-print(a.new_grid)
-#print(a.policy)
-temp_grid = a.policy.copy()
-for x in range(a.dimension):
-    for y in range(a.dimension):
-        if a.policy[x][y]=='d':
-            temp_grid[x][y] = 'v'
-        elif a.policy[x][y]=='l':
-            temp_grid[x][y] = '<'
-        elif a.policy[x][y]=='r':
-            temp_grid[x][y] = '>'
-        elif a.policy[x][y]=='t':
-            temp_grid[x][y] = '^'
-print(temp_grid)
-
 
 plt.imshow(a.new_grid)
 plt.title("Optimal values for small_map.csv")
