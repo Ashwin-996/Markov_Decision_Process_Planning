@@ -79,7 +79,7 @@ For all the algorithms, report the following information for both maps.
 
 In the subsequent parts, you will be tasked to change the values of the different variables in your environment and then observe, analyze and report the resulting changes in the optimal policy and value estimates. Unless otherwise specified, assume that the car uses your vanilla value iteration implementation to derive the optimal policy. Also, restrict your analysis to the `small_map.` 
 
-### B1. Living reward analysis
+### Living reward analysis
 
 For this part, assume that the car uses your vanilla value iteration implementation to derive the optimal policy. Also, assume that the transition function is deterministic. 
 
