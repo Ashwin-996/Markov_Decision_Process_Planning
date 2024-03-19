@@ -74,3 +74,15 @@ For all the algorithms, report the following information for both maps.
 1. Report the wall time taken for convergence of both the algorithms and the number of iterations (count of policy iteration cycles for policy iteration and value iteration cycles for value iteration) till convergence in the default settings. Which algorithm do you think is scalable for larger environments?
 2. Plot the estimated value of the starting state for every iteration. You should report two plots, one for each map. Each plot should contain four line graphs (one for each algorithm - vanilla value iteration, row-major sweep, prioritized sweep, policy iteration), showing the evolution of the value of the starting state. 
 3. Generate a heat map of the values obtained after the convergence. Draw the optimal policy as arrows (denoting the direction of movement) over the grid cell. Which algorithm results in a better optimal policy?
+
+## Part B: Analysis
+
+In the subsequent parts, you will be tasked to change the values of the different variables in your environment and then observe, analyze and report the resulting changes in the optimal policy and value estimates. Unless otherwise specified, assume that the car uses your vanilla value iteration implementation to derive the optimal policy. Also, restrict your analysis to the `small_map.` 
+
+### B1. Living reward analysis
+
+For this part, assume that the car uses your vanilla value iteration implementation to derive the optimal policy. Also, assume that the transition function is deterministic. 
+
+- The petrol prices are fluctuating due to demand in the crude oil market. Thus, the car’s expense will increase if it uses petrol to power its engine (indicated by the negative value of the living reward). Indicate how your policy will change as this penalty changes to -0.1 and -0.9. In both cases observe and explain the differences between the policy obtained from that of the default settings.
+- To decrease the inflation in petrol prices, the grid world government announces incentives to use electric vehicles. So, using the electric engine will provide the car with a living reward of +0.001.  Assume a discount factor (gamma) of 0.999.  Run the value iteration algorithm for the new setting and report your observations along with an explanation.
+- Plot the heat maps of the values after convergence and the policy as arrows in each of the above settings. Analyse the policies obtained and report your insights.
