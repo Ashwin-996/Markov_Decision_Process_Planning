@@ -363,11 +363,11 @@ class world:
         return False
 
 # Vanilla value iteration
-a = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
+a = world(4, 0.8, -0.9, 0, 1, 0.9, "small_map.csv")
 a.initialize_map()
 a.initialize_grid()
 a.initialize_new_grid()
-epsilon = 0.0000001
+epsilon = 0.01
 it = 1
 xpoints = []
 ypoints = []
@@ -390,22 +390,40 @@ while(True):
 xpoints = np.asarray(xpoints)
 ypoints = np.asarray(ypoints)
 
+print(a.new_grid)
+#print(a.policy)
+temp_grid = a.policy.copy()
+for x in range(a.dimension):
+    for y in range(a.dimension):
+        if a.policy[x][y]=='d':
+            temp_grid[x][y] = 'v'
+        elif a.policy[x][y]=='l':
+            temp_grid[x][y] = '<'
+        elif a.policy[x][y]=='r':
+            temp_grid[x][y] = '>'
+        elif a.policy[x][y]=='t':
+            temp_grid[x][y] = '^'
+print(temp_grid)
+
+
 plt.imshow(a.new_grid)
-plt.title("Vanilla Heat Map")
+plt.title("Optimal values for small_map.csv")
 plt.show()
 
 #for x in range(a.dimension):
 #    for y in range(a.dimension):
 #        print(a.policy[x][y], end="")
 #    print("")
-#For small_map, epsilon = 1.7
+
+#For small_map, epsilon = 1.7 (maximum) to obtain optimal policy 
+#For large_map, epsilon = 1e-7 (maximum) to obtain optimal policy
 
 
 # Row-major sweep asynchronous value iteration
-b = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
+b = world(4, 0.8, 0, 0, 1, 0.9, "small_map.csv")
 b.initialize_map()
 b.initialize_grid()
-epsilon = 0.0000001
+epsilon = 0.1
 it = 1
 xpoints1 = []
 ypoints1 = []
@@ -427,6 +445,7 @@ while(True):
 xpoints1 = np.asarray(xpoints1)
 ypoints1 = np.asarray(ypoints1)
 
+
 #for x in range(b.dimension):
 #    for y in range(b.dimension):
 #        print(b.policy[x][y], end="")
@@ -434,12 +453,12 @@ ypoints1 = np.asarray(ypoints1)
 
 
 # Prioritized sweep asynchronous value iteration
-c = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
+c = world(4, 0.8, 0, 0, 1, 0.9, "small_map.csv")
 c.initialize_map()
 c.initialize_grid()
 c.initialize_priority_queue()
 c.initialize_visited()
-epsilon = 0.0000001
+epsilon = 0.01
 it = 1
 xpoints2 = []
 ypoints2 = []
@@ -457,6 +476,7 @@ while(len(c.pq)!=0):
 xpoints2 = np.asarray(xpoints2)
 ypoints2 = np.asarray(ypoints2)
 
+
 #for x in range(c.dimension):
 #    for y in range(c.dimension):
 #        print(c.policy[x][y], end="")
@@ -464,10 +484,10 @@ ypoints2 = np.asarray(ypoints2)
 
 
 # Modified Policy Iteration (Uses simplified value iteration to get an approximate evaluation of a policy)
-d = world(50, 0.8, 0, 0, 1, 0.9, "large_map.csv")
+d = world(4, 0.8, 0, 0, 1, 0.9, "small_map.csv")
 d.initialize_map()
 d.initialize_grid()
-epsilon = 0.01
+epsilon = 0.1
 it = 1
 xpoints3 = []
 ypoints3 = []
@@ -483,7 +503,7 @@ while(True):
 
         if max_residual < epsilon*(1-d.discount_factor)/d.discount_factor:
             break
-
+ 
     converged = True
     for x in range(d.dimension):
         for y in range(d.dimension):
@@ -502,16 +522,21 @@ while(True):
 xpoints3 = np.asarray(xpoints3)
 ypoints3 = np.asarray(ypoints3)
 
+
 #for x in range(d.dimension):
     #for y in range(d.dimension):
     #    print(d.policy[x][y], end="")
     #print("")
 
 
-#plt.plot(xpoints, ypoints, color='r', label='vanilla')
-#plt.plot(xpoints1, ypoints1, color='g', label='row-major sweep')
-#plt.plot(xpoints2, ypoints2, color='b', label='prioritized sweep')
-#plt.plot(xpoints3, ypoints3, color='y', label='policy iteration')
+#plt.plot(xpoints, ypoints, label='vanilla')
+#plt.plot(xpoints1, ypoints1, label='row-major sweep')
+#plt.plot(xpoints2, ypoints2, label='prioritized sweep')
+#plt.plot(xpoints3, ypoints3, label='policy iteration')
+#plt.xlabel('Number of iterations')
+#plt.ylabel('Estimated value of starting state S')
+#plt.title('Plot for small_map.csv')
+#plt.legend()
 #plt.show()
 
 
@@ -522,8 +547,8 @@ ypoints3 = np.asarray(ypoints3)
 #       policy iteration - time = 3.34 sec, iterations = 71
 
 #For small_map.csv : 
-#       vanilla - time = 2.96 ms, iterations = 7
-#       row-major sweep - time = 2.89 ms, iterations = 7 
+#       vanilla - time = 2.96 ms, iterations = 7-10
+#       row-major sweep - time = 2.89 ms, iterations = 7-9
 #       prioritized sweep - time = 2.96 ms, iterations = 25
-#       policy iteration - time = 2.9 ms, iterations = 3
+#       policy iteration - time = 2.9 ms, iterations = 2-3
 
